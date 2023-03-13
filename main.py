@@ -1,24 +1,21 @@
 import os
-from kivy.lang import Builder
-from kivy.properties import StringProperty
-
 from kivymd.app import MDApp
-from kivymd.uix.relativelayout import MDRelativeLayout
-
-# constants
-MAIN_WINDOW: str = os.path.abspath('main.kv')
-
-class ClickableTextFieldRound(MDRelativeLayout):
-    text = StringProperty()
-    hint_text = StringProperty()
-
+from kivy.lang import Builder
 
 class MainApp(MDApp):
     def build(self):
-        return Builder.load_file(MAIN_WINDOW)
+        self.theme_cls.theme_style = 'Light'
+        self.theme_cls.primary_palette = 'BlueGray'
+        return Builder.load_file(os.path.abspath('main.kv'))
+    
+    def login(self):
+        self.root.ids.welcome_label.text = f'Sup {self.root.ids.user.text}!'
 
-    def on_start(self):
-        self.fps_monitor_start()
+
+    def clear(self):
+        self.root.ids.welcome_label.text = 'WELCOME'
+        self.root.ids.password.text = ''
+        self.root.ids.user.text = ''
 
 
 MainApp().run()
